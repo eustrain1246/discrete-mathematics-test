@@ -187,7 +187,6 @@ public:
 		StudentSet ret;
 		vector<Student>::const_iterator iter = m_vecData.begin();
 		while (id <= IDMAX) {
-//			cout << "iter :" << iter->GetID() << endl;
 			if (iter!= m_vecData.cend() && id == iter->GetID())
 				++iter;
 			else
