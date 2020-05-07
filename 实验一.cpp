@@ -156,7 +156,7 @@ public:
 		}
 		return ret;
 	}
-	StudentSet Difference(const StudentSet& studentset) const {	//this包含，而传进来的参数中不包含
+	StudentSet Difference(const StudentSet& studentset) const {	
  		size_t id = 0;
 		StudentSet ret;
 		int index1 = 0, index2 = 0;
@@ -251,18 +251,14 @@ int main()
 		Student tmpstudent(i);
 		set1.Insert(tmpstudent);
 	}
-
 	set1.Output();
 	system("pause");
-
 	Student tmpstudent1(3);
 	cout << set1.Insert(tmpstudent1) << endl;
 	system("pause");
-
 	Student tmpstudent2(10);
 	cout << set1.Insert(tmpstudent2) << endl;
 	system("pause");
-
 	for (unsigned int i = 7; i < 12; i++)
 	{
 		Student tmpstudent(i);
@@ -273,24 +269,18 @@ int main()
 	cout << "set2:" << endl;
 	set2.Output();
 	system("pause");
-	
-	cout << "并" << endl;
 	set3 = set1.Union(set2);
 	set3.Output();
 	system("pause");
-	cout << "交" << endl;
 	set3 = set1.InterSect(set2);
 	set3.Output();
 	system("pause");
-	cout << "差" << endl;
 	set3 = set1.Difference(set2);
 	set3.Output();
 	system("pause");
-	cout<<"补"<<endl;
 	set3 = set1.Complement();
 	set3.Output();
 	system("pause");
-	cout << "对称差" << endl;
 	set3 = set1.SymDifference(set2);
 	set3.Output();
 	system("pause");
