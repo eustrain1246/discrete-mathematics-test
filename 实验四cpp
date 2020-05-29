@@ -258,7 +258,7 @@ bool Graph::IsConnected() {
 		for (int i : v)
 			if (i == 0)
 				return false;
-  //作者：哈尔滨理工大学软件19-6班 李兴鑫 未经允许 禁止转载、套用
+  //作者：哈尔滨理工大学软件19-6班 李兴鑫 未经允许 禁止盗用
 	}
 	return true;
 	
@@ -284,5 +284,5 @@ void Graph::addToList(int l, int r) {//添加到链表
 		pnode->m_iNodeID = r;
 		pnode->m_pNextNode = nullptr;//实际上new之后这里也会被自动初始化为nullptr
 	}
-	//作者：哈尔滨理工大学软件19-6班 李兴鑫 未经允许 禁止转载、套用
+	//作者：哈尔滨理工大学软件19-6班 李兴鑫 未经允许 禁止盗用
 }
