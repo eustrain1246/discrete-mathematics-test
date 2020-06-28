@@ -135,12 +135,12 @@ void PropositionalFormular::Convert2RPN()
 					}
 				}
 			}
-			while (!this->m_OperatorStack.empty()) {//把栈中剩余的联结词依次
-				char top = this->m_OperatorStack.top();
-				this->m_OperatorStack.pop();//出栈
-				this->m_strRevertPolishNotation.push_back(top);//并附加到波兰表达式末尾
-			}
 		}
+	}
+	while (!this->m_OperatorStack.empty()) {//把栈中剩余的联结词依次
+		char top = this->m_OperatorStack.top();
+		this->m_OperatorStack.pop();//出栈
+	this->m_strRevertPolishNotation.push_back(top);//并附加到波兰表达式末尾
 	}
 }
 //本文作者：哈尔滨理工大学软件与微电子学院 李兴鑫 未经允许 禁止盗用
