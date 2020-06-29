@@ -1,6 +1,5 @@
 // P07.cpp : Defines the entry point for the console application.
-//
-//			本段代码有误，在更正前请谨慎阅读					
+//					
 //软件19-6 李兴鑫
 //1914010612
 #include "stdafx.h"
@@ -93,57 +92,50 @@ void PropositionalFormular::Convert2RPN()
 		if (!IsSymbol(c))	//如果是命题标识符
 			this->m_strRevertPolishNotation.push_back(c);//直接将标识符附加到逆波兰表达式的末尾
 		else {//否则
-			if (c != '(' && c != ')') {//如果当前读入字符为联结词，则分情况进行不同处理
-				if (this->m_OperatorStack.empty())//如果当前栈为空
-					this->m_OperatorStack.push(c);//直接将联结词入栈
-				else {//否则进行进一步判断
-					if (this->m_OperatorStack.top() == '(')//如果当前栈顶元素为"("
-						this->m_OperatorStack.push(c);//则将当前联结词直接入栈
-					else if (c == '(')//如果当前联结词为"("
-						this->m_OperatorStack.push(c);//则将其直接入栈
-					else if (c == ')') {//若当前联结词为")"
-						if (this->m_OperatorStack.top() != '(')//*如果为空括号就放弃
-							this->m_OperatorStack.pop();
-						else
-							while (true) {//则将栈中所有联结词依次
-								//弹出
-								char top = this->m_OperatorStack.top();
-								this->m_OperatorStack.pop();
-								this->m_strRevertPolishNotation.push_back(top);//并附加到逆波兰表达式末尾
-								if (this->m_OperatorStack.top() == '(') {//直到栈顶元素为"("
-									this->m_OperatorStack.pop();//此时把"("出栈
-									break;
-								}
-							}
-					}//本文作者：哈尔滨理工大学软件与微电子学院 李兴鑫 未经允许 禁止盗用
-					else {//否则
+			if (this->m_OperatorStack.empty())//如果当前栈为空
+				this->m_OperatorStack.push(c);//直接将联结词入栈
+			else {//否则进行进一步判断
+				//*此处将对")"的判断改在了开头，否则可能会把成对的空括号压入栈
+				if (c == ')') {//如果当前联结词为")"
+					while (this->m_OperatorStack.top() != '(') {//则将栈中所有联结词依次
+						//弹出
 						char top = this->m_OperatorStack.top();
-						if (this->IsHighLevelThan(c, top))//若当前联结词优先级大于栈顶元素优先级
-							this->m_OperatorStack.push(c);//则将该联结词直接入栈
-						else//否则，若当前联结词优先级小于等于栈顶元素优先级
-							while (!this->m_OperatorStack.empty()) {
-								char top = this->m_OperatorStack.top();//则不断地将栈顶元素出栈
-								if (!this->IsHighLevelThan(c, top)) {
-									this->m_strRevertPolishNotation.push_back(top);//并附加到逆波兰表达式末尾
-									this->m_OperatorStack.pop();
-								}
-								else {//直到当前联结词优先级大于栈顶元素优先级
-									this->m_OperatorStack.push(c);
-									break;
-								}
+						this->m_OperatorStack.pop();
+						this->m_strRevertPolishNotation.push_back(top);//并附加到逆波兰表达式末尾
+					}
+					this->m_OperatorStack.pop();
+				}//本文作者：哈尔滨理工大学软件与微电子学院 李兴鑫 未经允许 禁止盗用
+				else if (c == '(')//如果当前联结词为"("
+					this->m_OperatorStack.push(c);//则将其直接入栈
+				else if (this->m_OperatorStack.top() == '(')//如果当前栈顶元素为"("
+					this->m_OperatorStack.push(c);//则将当前联结词直接入栈
+				else {//否则
+					char top = this->m_OperatorStack.top();
+					if (this->IsHighLevelThan(c, top))//若当前联结词优先级大于栈顶元素优先级
+						this->m_OperatorStack.push(c);//则将该联结词直接入栈
+					else {//否则，若当前联结词优先级小于等于栈顶元素优先级
+						while (!this->m_OperatorStack.empty()) {
+							char top = this->m_OperatorStack.top();//则不断地将栈顶元素出栈
+							if (!this->IsHighLevelThan(c, top)) {
+								this->m_strRevertPolishNotation.push_back(top);//并附加到逆波兰表达式末尾
+								this->m_OperatorStack.pop();
 							}
+							else break;//直到当前联结词优先级大于栈顶元素优先级
+						}
+						this->m_OperatorStack.push(c);//此时将当前联结词入栈
 					}
 				}
 			}
+
+
 		}
 	}
 	while (!this->m_OperatorStack.empty()) {//把栈中剩余的联结词依次
 		char top = this->m_OperatorStack.top();
 		this->m_OperatorStack.pop();//出栈
-	this->m_strRevertPolishNotation.push_back(top);//并附加到波兰表达式末尾
+		this->m_strRevertPolishNotation.push_back(top);//并附加到波兰表达式末尾
 	}
 }
-//本文作者：哈尔滨理工大学软件与微电子学院 李兴鑫 未经允许 禁止盗用
 void PropositionalFormular::PrintRPN()
 {
 	cout << m_strRevertPolishNotation << endl;
