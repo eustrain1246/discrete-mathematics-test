@@ -1,6 +1,6 @@
 // P07.cpp : Defines the entry point for the console application.
 //
-
+//			本段代码有误，在更正前请谨慎阅读					
 //软件19-6 李兴鑫
 //1914010612
 #include "stdafx.h"
